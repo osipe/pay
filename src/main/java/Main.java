@@ -14,6 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         Account acc = initData();
+        Scheduler.initScheduler();
         String commandEx = "On";
         System.out.println("Welcome to Service Payment, " + acc.getName());
         Scanner scanner = new Scanner(System.in);
@@ -26,7 +27,7 @@ public class Main {
             System.out.println("PAY: pay your bill");
             System.out.println("LIST_PAYMENT: Check payment transaction");
             System.out.println("SCHEDULE: Desires a possibility of scheduled bill payment");
-            System.out.println("TASK_SCHEDULE: Start schedule and view logs worker task");
+            System.out.println("TASK_SCHEDULE: Start/Stop schedule and view logs worker task");
             System.out.println("Exit: exit");
             System.out.print("Press command: ");
             commandEx = scanner.nextLine();
@@ -55,7 +56,7 @@ public class Main {
                     schedule(scanner, acc);
                     break;
                 case "TASK_SCHEDULE":
-                    initScheduler(scanner);
+                    taskScheduler(scanner);
                     break;
                 case "Exit":
                     System.out.println("Good bye !");
@@ -68,15 +69,23 @@ public class Main {
 
     }
 
-    private static void initScheduler(Scanner scanner) {
+    private static void taskScheduler(Scanner scanner) {
         try {
-            Scheduler.initScheduler();
             String commandEx = "On";
             while (!commandEx.equals("Quit")) {
-                System.out.println("Quit : exit view schedulerTask");
+                System.out.println("On : Schedule starting");
+                System.out.println("Off : Schedule shutdown");
+                System.out.println("Quit : Exit Scheduler And off schedule");
+                System.out.println("Please press command: ");
                 commandEx = scanner.nextLine();
+                System.out.println("commandEx: "+commandEx);
                 switch (commandEx) {
                     case "Quit":
+                    case "Off":
+                        Scheduler.status = "Off";
+                        break;
+                    case "On":
+                        Scheduler.status = "On";
                         break;
                     default:
                         System.out.println("Invalid commnad");

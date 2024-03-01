@@ -6,13 +6,12 @@ import schedule.Scheduler;
 import service.PayService;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Test {
-//    @org.junit.Test
+    //    @org.junit.Test
 //    public void testCachIn() {
 //        System.out.println("==========Test testCachIn==========");
 //        Account acc =  Main.initData();
@@ -49,7 +48,7 @@ public class Test {
     @org.junit.Test
     public void testSchedulePay() throws InterruptedException {
         System.out.println("==========Test schedule pay bill==========");
-        Account acc =  Main.initData();
+        Account acc = Main.initData();
         Double amount = 1000000.0;
         System.out.println("CASH_IN : " + amount);
         PayService.addFundToAccount(amount, acc.getId());
@@ -82,6 +81,7 @@ public class Test {
         PayService.schedule(acc.getId(), billScheduleIds, dateString);
         Double expectedSum = 0.0;
         Scheduler.initScheduler();
+        Scheduler.status = "On";
         Thread.sleep(10000);
         System.out.println("==========LIST BILL==========");
         PayService.listBill(acc.getId(), State.NOT_PAID);

@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Scheduler {
+    public static String status = "Off";
+
     public static void initScheduler() {
         System.out.println("===initScheduler=======");
         Thread myThread = new Thread(new Runnable() {
@@ -21,27 +23,28 @@ public class Scheduler {
             public void run() {
                 try {
                     while (true) {
-                        int corePoolSize = 4;
-                        int maximumPoolSize = 8;
-                        int queueCapacity = 100;
-                        final ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize,
-                                maximumPoolSize,
-                                10,
-                                TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueCapacity));
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                        String dateString = sdf.format(new Date());
-                        System.out.println("===Run Scheduler with pay date: {" + dateString + "}");
-                        try {
-                            if (Data.billSchedule != null && Data.billSchedule.containsKey(dateString)) {
-                                List<Bill> billSorted = Data.billSchedule.get(dateString).values().stream().sorted(Comparator.comparingLong(Bill::getDueDateTime)).collect(Collectors.toList());
-                                executor.execute(new BillScheduleWorker(billSorted));
-                                Data.billSchedule.remove(dateString);
+                        if (Scheduler.status != null && Scheduler.status.equals("On")) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            String dateString = sdf.format(new Date());
+                            System.out.println("===Run Scheduler with pay date: {" + dateString + "}");
+                            int corePoolSize = 4;
+                            int maximumPoolSize = 8;
+                            int queueCapacity = 100;
+                            final ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize,
+                                    maximumPoolSize,
+                                    10,
+                                    TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueCapacity));
+                            try {
+                                if (Data.billSchedule != null && Data.billSchedule.containsKey(dateString)) {
+                                    List<Bill> billSorted = Data.billSchedule.get(dateString).values().stream().sorted(Comparator.comparingLong(Bill::getDueDateTime)).collect(Collectors.toList());
+                                    executor.execute(new BillScheduleWorker(billSorted));
+                                    Data.billSchedule.remove(dateString);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            Thread.sleep(15000);
                         }
+                        Thread.sleep(15000);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
