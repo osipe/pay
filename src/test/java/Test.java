@@ -71,7 +71,7 @@ public class Test {
         PayService.schedule(acc.getId(), billScheduleIds, dateString);
         Double expectedSum = 0.0;
         Scheduler.initScheduler();
-        Thread.sleep(30000);
+        Thread.sleep(10000);
         System.out.println("==========LIST BILL==========");
         PayService.listBill(acc.getId(), State.NOT_PAID);
         System.out.println("==========LIST PAYMENT==========");
