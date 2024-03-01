@@ -27,6 +27,7 @@ public class BillScheduleWorker implements Runnable {
         } catch (Exception e) {
 
         } finally {
+            System.out.println("Pay bill id {" + bill.getId() + "}: " + result.get("messeage"));
             addHistory(bill, result);
         }
     }

@@ -1,9 +1,11 @@
 package schedule;
 
 import data.Data;
+import model.Bill;
 import worker.BillScheduleWorker;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -29,7 +31,7 @@ public class Scheduler {
                         System.out.println("===Run Scheduler with pay date: {" + dateString + "}");
                         try {
                             if (Data.billSchedule != null && Data.billSchedule.containsKey(dateString)) {
-                                Data.billSchedule.get(dateString).values().stream().forEach(bill ->
+                                Data.billSchedule.get(dateString).values().stream().sorted(Comparator.comparingLong(Bill::getDueDateTime)).forEach(bill ->
                                 {
                                     executor.execute(new BillScheduleWorker(bill));
 

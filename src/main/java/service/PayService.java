@@ -128,5 +128,6 @@ public class PayService {
             billMap.put(bill.getId(), bill);
         }
         Data.billSchedule.put(datePay, billMap);
+        System.err.println("Request add schedule bill is PROCESSED");
     }
 }

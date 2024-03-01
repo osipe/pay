@@ -110,7 +110,7 @@ public class Main {
             System.out.println("List Bill id (Example: 1,2):");
             String ids = scanner.nextLine();
             Set<Long> billIds = Arrays.stream(ids.split(",")).map(id -> Long.valueOf(id)).collect(Collectors.toSet());
-            System.out.println("Pay Date:");
+            System.out.println("Pay Date (dd/MM/yyyy):");
             String payDue = scanner.nextLine();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date payDate = sdf.parse(payDue);
