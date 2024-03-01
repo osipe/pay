@@ -26,7 +26,7 @@ public class Main {
             System.out.println("PAY: pay your bill");
             System.out.println("LIST_PAYMENT: Check payment transaction");
             System.out.println("SCHEDULE: Desires a possibility of scheduled bill payment");
-            System.out.println("VIEW_TASK_SCHEDULE: View logs worker task");
+            System.out.println("TASK_SCHEDULE: Start schedule and view logs worker task");
             System.out.println("Exit: exit");
             System.out.print("Press command: ");
             commandEx = scanner.nextLine();
@@ -54,7 +54,7 @@ public class Main {
                 case "SCHEDULE":
                     schedule(scanner, acc);
                     break;
-                case "VIEW_TASK_SCHEDULE":
+                case "TASK_SCHEDULE":
                     initScheduler(scanner);
                     break;
                 case "Exit":
