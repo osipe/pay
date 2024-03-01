@@ -34,17 +34,16 @@ public class PayService {
             if (Data.bills.containsKey(billId)) {
                 Bill bill = Data.bills.get(billId);
                 if (bill.getState() != State.NOT_PAID || bill.getAccountId() != accountId) {
-                    System.err.println("Sorry! Bill doesn't to proceed with payment.");
+                    System.out.println("Sorry! Bill doesn't to proceed with payment with id {"+billId+"}.");
                     error = true;
                     break;
                 } else {
-
                     bills.add(bill);
                     amount += bill.getAmount();
                 }
             } else {
                 error = true;
-                System.err.println("Sorry! Not found a bill with id {" + billId + "}.");
+                System.out.println("Sorry! Not found a bill with id {" + billId + "}.");
                 break;
             }
         }

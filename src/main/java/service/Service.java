@@ -13,10 +13,10 @@ public class Service {
                 Data.accounts.put(accountId, acc);
                 return balanceNew;
             } else {
-                System.err.println("Sorry !! Not found Account");
+                System.out.println("Sorry !! Not found Account");
             }
         } catch (Exception e) {
-            System.err.println("System error !!");
+            System.out.println("System error !!");
         }
         return null;
     }
@@ -32,13 +32,13 @@ public class Service {
                     System.out.println("Your avalible balance: " + balanceNew);
                     return balanceNew;
                 } else {
-                    System.err.println("Sorry !! Not enough fund to proceed with payment");
+                    System.out.println("Sorry !! Not enough fund to proceed with payment");
                 }
             } else {
-                System.err.println("Sorry !! Not found Account");
+                System.out.println("Sorry !! Not found Account");
             }
         } catch (Exception e) {
-            System.err.println("System error !!");
+            System.out.println("System error !!");
         }
         return null;
     }

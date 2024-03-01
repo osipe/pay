@@ -56,7 +56,7 @@ public class Main {
                     System.out.println("Good bye !");
                     break;
                 default:
-                    System.err.println("Invalid commnad");
+                    System.out.println("Invalid commnad");
                     break;
             }
         }
@@ -74,12 +74,12 @@ public class Main {
                     case "Quit":
                         break;
                     default:
-                        System.err.println("Invalid commnad");
+                        System.out.println("Invalid commnad");
                         break;
                 }
             }
         } catch (Exception e) {
-            System.err.println("Invalid commandEx");
+            System.out.println("Invalid commandEx");
         }
     }
 
@@ -90,7 +90,7 @@ public class Main {
             Set<Long> billIds = Arrays.stream(ids.split(",")).map(id -> Long.valueOf(id)).collect(Collectors.toSet());
             PayService.pay(acc.getId(), billIds);
         } catch (Exception e) {
-            System.err.println("Invalid bill id");
+            System.out.println("Invalid bill id");
         }
     }
 
@@ -100,7 +100,7 @@ public class Main {
             Double amount = scanner.nextDouble();
             PayService.addFundToAccount(amount, acc.getId());
         } catch (Exception e) {
-            System.err.println("Invalid Amount");
+            System.out.println("Invalid Amount");
         }
     }
 
@@ -118,7 +118,7 @@ public class Main {
                 PayService.schedule(acc.getId(), billIds, payDue);
             }
         } catch (Exception e) {
-            System.err.println("Invalid info");
+            System.out.println("Invalid info");
         }
     }
 
