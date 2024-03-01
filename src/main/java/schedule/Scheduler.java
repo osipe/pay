@@ -7,9 +7,11 @@ import worker.BillScheduleWorker;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Scheduler {
     public static void initScheduler() {
@@ -31,11 +33,8 @@ public class Scheduler {
                         System.out.println("===Run Scheduler with pay date: {" + dateString + "}");
                         try {
                             if (Data.billSchedule != null && Data.billSchedule.containsKey(dateString)) {
-                                Data.billSchedule.get(dateString).values().stream().sorted(Comparator.comparingLong(Bill::getDueDateTime)).forEach(bill ->
-                                {
-                                    executor.execute(new BillScheduleWorker(bill));
-
-                                });
+                                List<Bill> billSorted = Data.billSchedule.get(dateString).values().stream().sorted(Comparator.comparingLong(Bill::getDueDateTime)).collect(Collectors.toList());
+                                executor.execute(new BillScheduleWorker(billSorted));
                                 Data.billSchedule.remove(dateString);
                             }
                         } catch (Exception e) {

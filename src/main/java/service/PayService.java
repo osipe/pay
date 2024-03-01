@@ -92,7 +92,6 @@ public class PayService {
     }
 
     public static void schedule(Long accountId, Set<Long> billIds, String datePay) {
-        Double amount = 0.0;
         List<Bill> bills = new ArrayList<>();
         boolean error = false;
         for (Long billId : billIds) {
@@ -104,7 +103,6 @@ public class PayService {
                     break;
                 } else {
                     bills.add(bill);
-                    amount += bill.getAmount();
                 }
             } else {
                 error = true;
@@ -112,7 +110,7 @@ public class PayService {
                 break;
             }
         }
-        if (!error && Util.isNotNullAndGreaterThanZero(amount)) {
+        if (!error) {
             addScheduleBill(datePay, bills);
         } else {
             //TODO
@@ -128,6 +126,6 @@ public class PayService {
             billMap.put(bill.getId(), bill);
         }
         Data.billSchedule.put(datePay, billMap);
-        System.err.println("Request add schedule bill is PROCESSED");
+        System.out.println("Request add schedule bill is PROCESSED");
     }
 }

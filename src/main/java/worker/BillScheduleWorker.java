@@ -8,27 +8,30 @@ import util.Util;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BillScheduleWorker implements Runnable {
-    private Bill bill;
+    private List<Bill> bills;
 
-    public BillScheduleWorker(Bill bill) {
-        this.bill = bill;
+    public BillScheduleWorker(List<Bill> bills) {
+        this.bills = bills;
     }
 
     @Override
     public void run() {
-        Map<String, String> result = new HashMap<>();
-        ;
-        try {
-            System.out.println("Pay BillScheduleWorker with Bill Id: {" + bill.getId() + "}");
-            result = this.payBill(bill);
-        } catch (Exception e) {
 
-        } finally {
-            System.out.println("Pay bill id {" + bill.getId() + "}: " + result.get("messeage"));
-            addHistory(bill, result);
+        for (Bill bill : bills) {
+            Map<String, String> result = new HashMap<>();
+            try {
+                System.out.println("Pay BillScheduleWorker with Bill Id: {" + bill.getId() + "}");
+                result = this.payBill(bill);
+            } catch (Exception e) {
+
+            } finally {
+                System.out.println("Pay bill id {" + bill.getId() + "}: " + result.get("messeage"));
+                addHistory(bill, result);
+            }
         }
     }
 
@@ -36,7 +39,7 @@ public class BillScheduleWorker implements Runnable {
         Map<String, String> result = new HashMap<>();
         if (vaild(bill)) {
             Double balanceNew = Service.decreaseToAccount(bill.getAmount(), bill.getAccountId());
-            if (Util.isNotNullAndGreaterThanZero(balanceNew)) {
+            if (balanceNew != null) {
                 bill.setState(State.PROCESSED);
                 Data.bills.put(bill.getId(), bill);
                 result.put("messeage", "PROCESSED balanceNew : {" + balanceNew + "}");
