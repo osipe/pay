@@ -19,6 +19,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         while (!commandEx.equals("Exit")) {
             System.out.println("============Please choose service============");
+            System.out.println("BALANCE: Your avalible balance");
             System.out.println("CASH_IN: add fund into balance account");
             System.out.println("LIST_BILL: View all list bill");
             System.out.println("LIST_BILL_DUE_DATE: check bill sort due date");
@@ -31,6 +32,10 @@ public class Main {
             commandEx = scanner.nextLine();
             //System.out.print("hasNext: " + );
             switch (commandEx) {
+                case "BALANCE":
+                    acc = PayService.reLoadAccount(acc.getId());
+                    System.out.println("Your avalible balance: " + acc.getBalance());
+                    break;
                 case "CASH_IN":
                     cachIn(scanner, acc);
                     break;

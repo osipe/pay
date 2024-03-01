@@ -2,12 +2,17 @@ package service;
 
 import data.Data;
 import enums.State;
+import model.Account;
 import model.Bill;
 import util.Util;
 
 import java.util.*;
 
 public class PayService {
+    public static Account reLoadAccount(Long accountId) {
+        return Data.accounts.get(accountId);
+    }
+
     public static void addFundToAccount(Double amount, Long accountId) {
         if (Util.isNotNullAndGreaterThanZero(amount) && Util.isNotNullAndGreaterThanZero(accountId)) {
             Double balanceNew = Service.addFundToAccount(amount, accountId);
@@ -34,7 +39,7 @@ public class PayService {
             if (Data.bills.containsKey(billId)) {
                 Bill bill = Data.bills.get(billId);
                 if (bill.getState() != State.NOT_PAID || bill.getAccountId() != accountId) {
-                    System.out.println("Sorry! Bill doesn't to proceed with payment with id {"+billId+"}.");
+                    System.out.println("Sorry! Bill doesn't to proceed with payment with id {" + billId + "}.");
                     error = true;
                     break;
                 } else {
