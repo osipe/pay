@@ -24,8 +24,8 @@ public class Main {
             System.out.println("LIST_BILL_DUE_DATE: check bill sort due date");
             System.out.println("PAY: pay your bill");
             System.out.println("LIST_PAYMENT: Check payment transaction");
-            System.out.println("SCHEDULE: ");
-            System.out.println("VIEW_TASK_SCHEDULE: ");
+            System.out.println("SCHEDULE: Desires a possibility of scheduled bill payment");
+            System.out.println("VIEW_TASK_SCHEDULE: View logs worker task");
             System.out.println("Exit: exit");
             System.out.print("Press command: ");
             commandEx = scanner.nextLine();
