@@ -39,7 +39,7 @@ public class PayService {
             if (Data.bills.containsKey(billId)) {
                 Bill bill = Data.bills.get(billId);
                 if (bill.getState() != State.NOT_PAID || bill.getAccountId() != accountId) {
-                    System.out.println("Sorry! Bill doesn't to proceed with payment with id {" + billId + "}.");
+                    System.out.println("Sorry! Bill had been processed or not belong to this account with id {" + billId + "}.");
                     error = true;
                     break;
                 } else {
